@@ -18,15 +18,18 @@ var employees = [{"name":"Alex","surname":"Yavkin","position":"sr. engineer","de
 }
 
 function task1(employees) {
- 	var engineer = [];
- 	for (let i = 0; i < employees.length; i++) {
-		if (employees[i].position === 'engineer') {
-			engineer.push([employees[i].surname, employees[i].name, employees[i].salary]);
-		}
-	}
- 	engineer.sort(function(a, b) { return a[2] - b[2]; });
-  	return engineer;
+ 	return employees.filter(employee => employee.position === 'engineer')
+		.map(function(engineer) {
+			return {
+				name : engineer.name,
+				surname : engineer.surname,
+				salary : engineer.salary
+			}
+		})
+		.sort (sortSalaryByAsk);
 }
+
+function sortSalaryByAsk (firstEngineer, secondEngineer) { return firstEngineer.salary - secondEngineer.salary;}
 
 function task2(employees) {
 	let map = new Map();
@@ -40,9 +43,17 @@ function task2(employees) {
 			map.set(position, 1);
 		}
 	}
-	let result = Array.from(map.entries());
-	result.sort(function (a, b) { return b[1] - a[1]; });
+	let result = Array.from(map.entries()).map(function(pair) {
+		return {
+			position: pair[0],
+			numEmployees: pair[1]
+		}
+	});
+	result.sort(sortNumEmployeesByDesk);
 	return result;
+}
+function sortNumEmployeesByDesk (firstPair, secondPair) {
+ 	return secondPair.numEmployees - firstPair.numEmployees;
 }
  // should show the result
 console.log(task1(employees));
@@ -55,7 +66,7 @@ console.log(task2(employees));
  * Finds employees who has max salaries
  */
 function exampleFunction(employees) {
-	var maxSalary = 10000;
+	let maxSalary = 10000;
 	for (let i = 0; i < employees.length; i++) {
 		if (employees[i].salary > maxSalary) {
 			maxSalary = employees[i].salary;
