@@ -1,0 +1,87 @@
+header#page {
+    /* Rectangle 1 */
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    float: none;
+    background-color: #E0E0E0;
+}
+svg#position {
+    /* Group 3 */
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 936px;
+    top: 15px;
+}
+svg#position1 {
+    /* u:user */
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 1034px;
+    top: 15px;
+}
+svg#position2 {
+    position: absolute;
+    width: 31px;
+    height: 30px;
+    left: 1305px;
+    top: 11px;
+}
+span#text {
+    /* Marjona M. */
+    position: absolute;
+    width: 130px;
+    height: 30px;
+    left: 1081px;
+    top: 15px;
+
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 31px;
+
+    /* Gray 2 */
+    color: #4F4F4F;
+}
+main#page {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+img#photo {
+    /* 2540842916ef117270347f8faec5a4c7 4 */
+    position: absolute;
+    width: 1180px;
+    height: 230px;
+    top: 76px;
+    left: calc(50% - 1180px/2 - 2px);
+}
+section#page {
+    /* Rectangle 1 */
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    left: 0px;
+    top: 305px;
+    background: #C4C4C4;
+}
+.text{
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 70px;
+    /* Gray 4 */
+    color: #4F4F4F;
+}
+.menu {
+    /* Rectangle 2 */
+    position: absolute;
+    width: 280px;
+    height: 70px;
+    background: #BDBDBD;
+}
