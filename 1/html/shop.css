@@ -1,41 +1,41 @@
-header#page {
+table#header {
     /* Rectangle 1 */
-    position: absolute;
     width: 100%;
     height: 60px;
 
     background-color: #E0E0E0;
 }
-svg#position {
-    /* Group 3 */
-    position: absolute;
+
+table#icon-row {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+svg#logo {
+    width: 109px;
+    height: 60px;
+}
+
+svg#basket {
+    align: right;
+    /*position: absolute;*/
     width: 30px;
     height: 30px;
-    left: 936px;
-    top: 15px;
 }
-svg#position1 {
+svg#user {
     /* u:user */
-    position: absolute;
+    /*position: absolute;*/
     width: 30px;
     height: 30px;
-    left: 1034px;
-    top: 15px;
 }
-svg#position2 {
-    position: absolute;
+svg#logout {
+    /*position: absolute;*/
     width: 31px;
     height: 30px;
-    left: 1305px;
-    top: 11px;
 }
-span#text {
+span#user-name {
     /* Marjona M. */
-    position: absolute;
-    width: 130px;
-    height: 30px;
-    left: 1081px;
-    top: 15px;
+    /*position: absolute;*/
 
     font-family: Rubik;
     font-style: normal;
@@ -46,37 +46,52 @@ span#text {
     /* Gray 2 */
     color: #4F4F4F;
 }
-main#style {
+.page {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
-img#photo {
-    /* 2540842916ef117270347f8faec5a4c7 4 */
-    position: absolute;
-    width: 1180px;
-    height: 230px;
-    top: 76px;
-    left: calc(50% - 1180px/2 - 2px);
+
+figure {
+    margin: 0;
 }
-section#style1 {
-    /* Rectangle 1 */
-    position: absolute;
+
+img {
+    vertical-align: top;
+}
+
+img#photo {
     width: 100%;
-    height: 70px;
-    left: 0px;
-    top: 305px;
+    height: 270px;
+}
+
+section#menu-items {
+    width: 100%;
+    height: 100%;
     background: #C4C4C4;
 }
-.text {
+.menu-text {
     font-family: Rubik;
     font-style: normal;
     font-weight: normal;
     font-size: 36px;
     line-height: 70px;
-    /* Gray 4 */
+
     color: #4F4F4F;
 }
+
+.menu-item-selected {
+    background: #4F4F4F;
+}
+
+.menu-text-selected {
+    color: #BDBDBD;
+}
+
+.menu-item {
+    background: #C4C4C4;
+}
+
 .text1 {
     /* 299 руб. */
     position: absolute;
@@ -98,14 +113,90 @@ section#style1 {
     position: absolute;
     width: 280px;
     height: 70px;
-    background: #BDBDBD;
+
 }
 
 .socks {
-    /* 4 1 */
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.price {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #4F4F4F;
+}
+
+.price-back {
+    height: 36px;
+    background: #C4C4C4;
+}
+
+.in-basket {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #4F4F4F;
+}
+
+.in-basket-back {
+    background: #EB5757;
+}
+
+.product-item {
+    border-spacing: 70px 30px;
+}
+
+svg#contact {
+    /* Rectangle 11 */
     position: absolute;
-    width: 280px;
-    height: 298px;
-    left: 50px;
-    top: 434px;
+    width: 1440px;
+    height: 258px;
+    left: 0px;
+    margin-top: 85px;
+
+    /* Gray 2 */
+    background: #4F4F4F;
+    opacity: 0.9;
+}
+.contact {
+    align: center;
+    text-align: center;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 36px;
+    /* identical to box height */
+
+    /* white */
+    color: white;
+
+}
+.background {
+    table-layout: fixed;
+    position: absolute;
+    /*align-content: center;*/
+    width: 100%;
+    margin-top: 79px;
+
+    height: 258px;
+
+    /* Gray 2 */
+    background: #4F4F4F;
+    opacity: 0.9;
+}
+
+.footer {
+    background: url("../img/footer1.png");
+    height: 416px;
+    margin-top: 50px;
 }
