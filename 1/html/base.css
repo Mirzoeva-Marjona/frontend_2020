@@ -1,0 +1,121 @@
+.menu-items {
+    width: 100%;
+    height: 100%;
+}
+
+.menu-text {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 70px;
+}
+
+.menu-item {
+    color: #4F4F4F;
+}
+
+.menu-item:hover {
+    background: #4F4F4F;
+    color: #BDBDBD;
+}
+
+.menu-item:active {
+    background: #6c6868;
+    color: #BDBDBD;
+}
+
+/*item*/
+.item-image {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.price {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #4F4F4F;
+}
+
+.price-back {
+    height: 36px;
+
+    background: #C4C4C4;
+}
+
+.in-basket {
+    font-size: 24px;
+    line-height: 28px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.in-basket-back {
+    background: #EB5757;
+    color: #4F4F4F;
+}
+
+.in-basket-back:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    cursor: pointer;
+}
+
+.in-basket-back:active {
+    color: black;
+}
+
+.product-grid {
+    border-spacing: 0px 30px;
+}
+
+.product-item {
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.product-item:hover {
+    box-shadow: 0 0 15px rgba(7, 6, 6, 0.5);
+}
+
+.contact {
+    align: center;
+    text-align: center;
+
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 36px;
+    color: white;
+}
+
+.social-media:hover {
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    border-radius: 30px;
+}
+
+.social-media:active {
+    box-shadow: 0 0 15px rgba(10, 10, 10, 0.5);
+}
+
+.footer-background {
+    position: absolute;
+    width: 100%;
+    margin-top: 79px;
+    height: 258px;
+    table-layout: fixed;
+
+    opacity: 0.9;
+}
+
+.footer {
+    height: 416px;
+    margin-top: 50px;
+
+    background: url("../img/footer.png");
+}
