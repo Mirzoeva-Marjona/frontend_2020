@@ -43,6 +43,7 @@
 
 .price-back {
     height: 36px;
+    width: 50%;
 
     background: #C4C4C4;
 }
@@ -58,6 +59,7 @@
 .in-basket-back {
     background: #EB5757;
     color: #4F4F4F;
+    width: 50%;
 }
 
 .in-basket-back:hover {
@@ -74,6 +76,7 @@
 }
 
 .product-item {
+    width: 25%;
     padding: 10px;
     border-radius: 7px;
 }
