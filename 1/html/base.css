@@ -60,6 +60,7 @@
     background: #EB5757;
     color: #4F4F4F;
     width: 50%;
+    border-radius: 3px;
 }
 
 .in-basket-back:hover {
@@ -68,7 +69,19 @@
 }
 
 .in-basket-back:active {
-    color: black;
+    color: #4F4F4F;
+}
+
+.modal-title {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    color: #4F4F4F;
+}
+
+.modal-text.modal.modal-title{
+    font-size: 24px;
 }
 
 .product-grid {
@@ -79,6 +92,11 @@
     width: 25%;
     padding: 10px;
     border-radius: 7px;
+}
+
+.product-card {
+    width: 100%;
+    border-spacing: 0px 0px;
 }
 
 .product-item:hover {
@@ -121,4 +139,15 @@
     margin-top: 50px;
 
     background: url("../img/footer.png");
+}
+
+.option-text {
+    width: 100%;
+    font-size: 24px;
+    line-height: 100%;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+    color: #4F4F4F;
 }
