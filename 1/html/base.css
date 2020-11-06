@@ -154,6 +154,21 @@
     color: #4F4F4F;
 }
 
+.notification-text {
+    font-size: 28px;
+    line-height: 100%;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+    color: #4F4F4F;
+}
+
+.notification-fragment {
+    padding: 20px;
+    background-color: #EB5757;
+}
+
 .modal {
     position: fixed;
     top: 50%;
@@ -205,6 +220,11 @@
     visibility: hidden;
 }
 
+.js-add-to-basket { }
+
+.js-product-count { }
+
+.js-notification { }
 /*.js-visible {*/
 /*    visibility: visible;*/
 /*}*/
