@@ -225,6 +225,21 @@
 .js-product-count { }
 
 .js-notification { }
+
+.js-basket-items { }
 /*.js-visible {*/
 /*    visibility: visible;*/
 /*}*/
+
+.js-product-name { }
+
+.js-product-price { }
+
+.js-product-quantity { }
+
+.js-product-size { }
+
+.js-product-img {
+    height: 40px;
+    width: 40px;
+}

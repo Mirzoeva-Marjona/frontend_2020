@@ -109,7 +109,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_4.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_1.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -143,7 +143,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_7.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_2.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -177,7 +177,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_5.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_3.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -211,7 +211,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_1.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_4.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -247,7 +247,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_8.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_5.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -315,7 +315,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_3.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_7.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -349,7 +349,7 @@
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img class="item-image" src="../img/socks_2.png" alt="Image not found">
+                                    <img class="item-image" src="../img/socks_8.png" alt="Image not found">
                                 </figure>
                             </td>
                         </tr>
@@ -381,10 +381,10 @@
             </tr>
         </table>
     </section>
-    <div class="js-basket js-hidden">
-        <table class="modal" data-modal="open-basket">
+    <div class="js-basket modal js-hidden">
+        <table data-modal="open-basket">
             <tr>
-                <td height="10%">
+                <td height="10%" width="50%">
                     <span class="modal-title">Выбранные товары</span>
                 </td>
                 <td class="js-close-basket">
@@ -394,6 +394,7 @@
                 </td>
             </tr>
         </table>
+        <div class="js-basket-items"></div>
     </div>
     <div class="modal js-hidden js-notification">
         <div class="notification-fragment">
@@ -506,15 +507,18 @@
     </footer>
 </main>
 </body>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<script src="../scripts/main.js"></script>
 <template id="productItemRow">
     <table>
         <tr>
-            <td>photo</td>
-            <td class="modal-text">product name</td>
-            <td class="modal-text">size</td>
-            <td class="modal-text">kolichestvo</td>
+            <td>
+                <img class="js-product-img" src="" alt="Изображение не найдено">
+            </td>
+            <td class="modal-text js-product-name"></td>
+            <td class="modal-text js-product-size"></td>
+            <td class="modal-text">Количество товаров</td>
+            <td class="modal-text js-product-quantity"></td>
+            <td class="modal-text js-product-price"></td>
+            <td class="modal-text">руб.</td>
             <td>
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21.25 27.5H8.75C7.36929 27.5 6.25 26.3807 6.25 25V8.75H3.75V6.25H8.75V5C8.75 3.61929 9.86929 2.5 11.25 2.5H18.75C20.1307 2.5 21.25 3.61929 21.25 5V6.25H26.25V8.75H23.75V25C23.75 26.3807 22.6307 27.5 21.25 27.5ZM8.75 8.75V25H21.25V8.75H8.75ZM11.25 5V6.25H18.75V5H11.25ZM18.75 22.5H16.25V11.25H18.75V22.5ZM13.75 22.5H11.25V11.25H13.75V22.5Z" fill="#333333"/>
@@ -523,4 +527,6 @@
         </tr>
     </table>
 </template>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="../scripts/main.js"></script>
 </html>
