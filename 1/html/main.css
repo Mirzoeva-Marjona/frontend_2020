@@ -29,6 +29,7 @@ img {
 .header {
     width: 100%;
     height: 60px;
+    column-count: 5;
 }
 
 .header-background {
