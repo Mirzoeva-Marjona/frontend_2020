@@ -55,10 +55,32 @@ let products = new Map([
 
  localStorage.setItem("products", JSON.stringify(Array.from(products.entries())));
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function preloaderOpen() {
+    $('.js-loader, .js-overlay').removeClass('js-hidden');
+    $('.js-loader').slideUp(500).slideDown(500);
+}
+
+function preloaderClose() {
+    $('.js-loader').slideUp(500).slideDown(500).delay(1000);
+    $('.js-loader').addClass('js-hidden');
+}
+
 $('.js-open-basket').click(function (event) {
+    preloaderOpen();
+    sleep(2000).then(() => {
+        preloaderClose();
+        showBasket();
+    });
+});
+
+function showBasket() {
+    $('.js-basket').removeClass('js-hidden');
+
     console.log("open basket");
-    $('.js-basket').removeClass("js-hidden");
-    $('.js-overlay').removeClass("js-hidden");
 
     let basketJson = localStorage.getItem("basket");
     let basketMap = new Map(JSON.parse(basketJson));
@@ -76,12 +98,12 @@ $('.js-open-basket').click(function (event) {
         let row = createBasketRow(productInfo);
         $('.js-basket-items').append(row);
     }
-});
+}
+
 
 $('.js-close-basket').click(function (event) {
     console.log("close basket");
-    $('.js-basket').addClass("js-hidden");
-    $('.js-overlay').addClass("js-hidden");
+    $('.js-basket, .js-overlay, .js-loader').addClass("js-hidden");
 });
 
 $('.js-add-to-basket').click(function (event) {
@@ -134,5 +156,5 @@ function createBasketRow (productInfo) {
 }
 
 $('.js-overlay').click(function (event) {
-    $('.js-basket, .js-notification, .js-overlay').addClass("js-hidden");
+    $('.js-basket, .js-notification, .js-overlay, .js-loader').addClass("js-hidden");
 })
