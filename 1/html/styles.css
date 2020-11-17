@@ -4,7 +4,6 @@
 }
 
 .basket {
-    align: right;
     width: 30px;
     height: 30px;
     padding: 2px;
@@ -67,5 +66,60 @@
 }
 
 .container {
-display: flex;
+    display: flex;
 }
+
+.justify-start {
+    margin-right: auto;
+}
+
+.js-basket {
+
+}
+
+.js-overlay { }
+
+.js-open-basket { }
+
+.js-close-basket { }
+
+.js-close-overlay {
+
+}
+
+.js-hidden {
+    visibility: hidden;
+}
+
+.js-add-to-basket { }
+
+.js-product-count { }
+
+.js-notification { }
+
+.js-loader { }
+
+.js-basket-items { }
+
+.js-product-name { }
+
+.js-product-price { }
+
+.js-product-quantity { }
+
+.js-product-size { }
+
+.js-product-img {
+    height: 80px;
+    width: 80px;
+}
+
+.js-remove-from-basket { }
+
+.js-product-row { }
+
+.js-product-card { }
+
+.js-product-cards-container { }
+
+.js-basket-total { }

@@ -25,11 +25,20 @@ img {
     vertical-align: top;
 }
 
+/*buttons format*/
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
 /*header*/
 .header {
-    width: 100%;
     height: 60px;
-    column-count: 5;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .header-background {
@@ -41,6 +50,11 @@ img {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.product-cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 
