@@ -55,6 +55,8 @@ let products = new Map([
 
  localStorage.setItem("products", JSON.stringify(Array.from(products.entries())));
 
+showProductCards();
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -86,20 +88,46 @@ function showBasket() {
     let basketMap = new Map(JSON.parse(basketJson));
     $('.js-basket-items').empty();
 
+    let total = 0;
     let pairs = Array.from(basketMap.entries());
     for (let i = 0; i < pairs.length; i++) {
         let pair = pairs[i];
+        let idRow = pair[0];
         let value = pair[1];
 
         let productInfo = products.get(value.productId);
         productInfo.count = value.quantity;
         productInfo.size = value.size;
+        productInfo.idRow = idRow;
+
+        total += productInfo.count * productInfo.price;
 
         let row = createBasketRow(productInfo);
         $('.js-basket-items').append(row);
     }
+    $('.js-basket-total').text(total);
+    $('.js-remove-from-basket').click(function (event) {
+        let productId = $(this).parent(".js-product-row").data('full-product-id');
+        console.log(productId);
+        let productRow = basketMap.get(productId);
+        if (productRow.quantity > 1) {
+            productRow.quantity--;
+        } else {
+            basketMap.delete(productId);
+        }
+        let countProducts = localStorage.getItem("countProducts");
+        let newCount = Number(countProducts) - 1;
+
+        localStorage.setItem("countProducts", newCount);
+        $('.js-product-count').text(newCount);
+        localStorage.setItem("basket", JSON.stringify(Array.from(basketMap.entries())));
+        showBasket();
+    })
 }
 
+function removeFromBasket() {
+
+}
 
 $('.js-close-basket').click(function (event) {
     console.log("close basket");
@@ -109,11 +137,10 @@ $('.js-close-basket').click(function (event) {
 $('.js-add-to-basket').click(function (event) {
     console.log("add to basket");
 
-    //TODO remove closest
-    let productId = $(this).closest('table').parent('.product-item').data('product-id');
+    let productId = $(this).parent('.product-item').data('product-id');
     console.log(productId);
 
-    let socksSize = $(this).closest('table').parent('.product-item').find('select').val();
+    let socksSize = $(this).parent('.product-item').find('select').val();
     console.log(socksSize);
     if (socksSize == 'Размер') {
         $('.js-notification, .js-overlay').removeClass('js-hidden');
@@ -140,13 +167,13 @@ $('.js-add-to-basket').click(function (event) {
                 size: socksSize
             })
         }
-
         localStorage.setItem("basket", JSON.stringify(Array.from(basketMap.entries())));
     }
 })
 
 function createBasketRow (productInfo) {
     let clone = productItemRow.content.cloneNode(true);
+    $(clone).find(".js-product-row").data('full-product-id', productInfo.idRow);
     $(clone).find(".js-product-img").attr("src", productInfo.img);
     $(clone).find(".js-product-name").text(productInfo.name);
     $(clone).find(".js-product-size").text(productInfo.size);
@@ -158,3 +185,27 @@ function createBasketRow (productInfo) {
 $('.js-overlay').click(function (event) {
     $('.js-basket, .js-notification, .js-overlay, .js-loader').addClass("js-hidden");
 })
+
+function creatProductCard (product) {
+    let clone = productCard.content.cloneNode(true);
+    $(clone).find(".js-product-card").data('product-id', product.id);
+    $(clone).find(".js-product-img").attr("src", product.img);
+    $(clone).find(".js-product-name").text(product.name);
+    $(clone).find(".js-product-price").text(product.price);
+    return clone;
+}
+
+function showProductCards () {
+    let productEntries = Array.from(products.entries());
+    for (let i=0; i<productEntries.length; i++) {
+        let productPair = productEntries[i];
+        let id = productPair[0];
+        let product = productPair[1];
+
+        product.id = id;
+        let card = creatProductCard(product);
+        $(".js-product-cards-container").append(card);
+    }
+}
+
+
