@@ -38,7 +38,7 @@ let products = new Map([
     }],
     [6, {
         img: '../img/socks_6.png',
-        name: "носки. Суши",
+        name: "Носки. Суши",
         price: 299
     }],
     [7, {

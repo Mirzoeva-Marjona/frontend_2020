@@ -55,6 +55,8 @@ button {
 .product-cards-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5%;
+    grid-row-gap: 3%;
 }
 
 

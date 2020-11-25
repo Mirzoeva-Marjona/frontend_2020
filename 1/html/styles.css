@@ -109,10 +109,7 @@
 
 .js-product-size { }
 
-.js-product-img {
-    height: 80px;
-    width: 80px;
-}
+.js-product-img { }
 
 .js-remove-from-basket { }
 
@@ -122,4 +119,6 @@
 
 .js-product-cards-container { }
 
-.js-basket-total { }
+.js-basket-total {
+    align-content: end;
+}
