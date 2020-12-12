@@ -4,6 +4,63 @@
     align-items: center;
 }
 
+#menu-burger {
+    display: none;
+}
+
+#menu-burger:checked ~ .menu-wrapper {
+    display: flex;
+}
+
+.menu-button {
+    display: flex; /* используем flex для центрирования содержимого */
+    align-items: center;  /* центрируем содержимое кнопки */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+}
+/* добавляем "гамбургер" */
+.menu-button > span,
+.menu-button > span::before,
+.menu-button > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #616161;
+}
+.menu-button > span::before {
+    content: '';
+    top: -8px;
+}
+.menu-button > span::after {
+    content: '';
+    top: 8px;
+}
+
+.menu-button > span,
+.menu-button > span::before,
+.menu-button > span::after {
+    transition-duration: .40s;
+}
+
+#menu-burger:checked ~ .menu-button > span {
+    transform: rotate(45deg);
+}
+#menu-burger:checked ~ .menu-button > span::before {
+    top: 0;
+    transform: rotate(0);
+}
+
+#menu-burger:checked ~ .menu-button > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
 .menu-item-content {
     margin: 0 10% 0 10%;
 }
@@ -171,7 +228,6 @@
 }
 
 .footer-background {
-    position: absolute;
     width: 100%;
     margin-top: 79px;
     height: 258px;
@@ -180,9 +236,20 @@
     opacity: 0.9;
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.main {
+    flex: 1 0 auto;
+    box-sizing: border-box;
+}
+
 .footer {
-    height: 416px;
-    margin-top: 50px;
+    height: 420px;
+    flex-shrink: 0;
 
     background: url("../img/footer.png");
 }
@@ -194,16 +261,13 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
             "zero first1 second third"
-                        ". . social-media-grid ."
+            ". . social-media-grid ."
 }
 
-.social-media {
-
-}
+.social-media { }
 
 .social-media-grid {
     display: flex;
-    /*margin-left: 10%;*/
     justify-content: space-evenly;
     grid-area: social-media-grid;
 }
@@ -244,9 +308,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    /*border: 1px solid white;*/
-    background-color: white;
     z-index: 3;
 }
 
@@ -260,7 +321,7 @@
 
 .modal-basket {
     width: 40%;
-    max-height: 50%;
+    min-width: 500px;
     padding: 0.5% 0px 0.5% 0.5%;
 }
 
@@ -285,11 +346,10 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, .3);
-    /*z-index: 2;*/
 }
 
 .menu-wrapper {
-    display: flex;
+    flex-wrap: wrap;
 }
 
 .menu-wrapper > button {
