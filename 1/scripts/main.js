@@ -137,10 +137,10 @@ $('.js-close-basket').click(function (event) {
 $('.js-add-to-basket').click(function (event) {
     console.log("add to basket");
 
-    let productId = $(this).parent('.product-item').data('product-id');
+    let productId = $(this).parent('.js-product-card').data('product-id');
     console.log(productId);
 
-    let socksSize = $(this).parent('.product-item').find('select').val();
+    let socksSize = $(this).parent('.js-product-card').find('select').val();
     console.log(socksSize);
     if (socksSize == 'Размер') {
         $('.js-notification, .js-overlay').removeClass('js-hidden');
