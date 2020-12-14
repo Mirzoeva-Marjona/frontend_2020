@@ -323,6 +323,7 @@
     width: 40%;
     min-width: 500px;
     padding: 0.5% 0px 0.5% 0.5%;
+    background-color: white;
 }
 
 .modal-cross-basket {
@@ -364,8 +365,7 @@
 }
 
 .scroll {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .content-in-basket {
