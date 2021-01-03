@@ -147,6 +147,15 @@
     color: #4F4F4F;
 }
 
+.modal-title-wrapper {
+    width: 100%;
+}
+
+.basket-content-wrapper {
+    min-width: 500px;
+    padding: 3%;
+}
+
 .modal-text {
     width: 80%;
     font-family: Rubik;
@@ -312,17 +321,16 @@
 }
 
 .modal-cross {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    /*float: right;*/
+    /*top: 10px;*/
+    /*right: 10px;*/
 
     cursor: pointer;
 }
 
 .modal-basket {
     width: 40%;
-    min-width: 500px;
-    padding: 0.5% 0px 0.5% 0.5%;
+
     background-color: white;
 }
 
@@ -382,6 +390,11 @@
 
 .basket-total {
     text-align: end;
+}
+
+.basket-header {
+    display: flex;
+    flex-direction: row;
 }
 
 .product-img {
