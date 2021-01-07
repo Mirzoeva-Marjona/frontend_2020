@@ -1,16 +1,16 @@
 if (localStorage.getItem("countProducts") == null) {
-    localStorage.setItem("countProducts", 0);
+    localStorage.setItem("countProducts", "0");
 } else {
-    let countProducts = localStorage.getItem("countProducts");
+    const countProducts = localStorage.getItem("countProducts");
     $('.js-product-count').text(countProducts);
 }
 
 if (localStorage.getItem("basket") == null) {
-    let map = new Map();
+    const map = new Map();
     localStorage.setItem("basket", JSON.stringify(Array.from(map.entries())));
 }
 
-let products = new Map([
+const products = new Map([
     [1, {
         img: '../img/socks_1.png',
         name: "Носки. Устрицы",
@@ -53,20 +53,16 @@ let products = new Map([
     }]
 ]);
 
- localStorage.setItem("products", JSON.stringify(Array.from(products.entries())));
+localStorage.setItem("products", JSON.stringify(Array.from(products.entries())));
 
-showProductCards();
+let sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function preloaderOpen() {
+let preloaderOpen = () => {
     $('.js-loader, .js-overlay').removeClass('js-hidden');
     $('.js-loader').slideUp(500).slideDown(500);
 }
 
-function preloaderClose() {
+let preloaderClose = () => {
     $('.js-loader').slideUp(500).slideDown(500).delay(1000);
     $('.js-loader').addClass('js-hidden');
 }
@@ -79,44 +75,48 @@ $('.js-open-basket').click(function (event) {
     });
 });
 
-function showBasket() {
+let showBasket = () => {
     $('.js-basket').removeClass('js-hidden');
 
     console.log("open basket");
 
-    let basketJson = localStorage.getItem("basket");
-    let basketMap = new Map(JSON.parse(basketJson));
+    const basketJson = localStorage.getItem("basket");
+    const basketMap = new Map(JSON.parse(basketJson));
     $('.js-basket-items').empty();
 
     let total = 0;
-    let pairs = Array.from(basketMap.entries());
+    const pairs = Array.from(basketMap.entries());
     for (let i = 0; i < pairs.length; i++) {
-        let pair = pairs[i];
-        let idRow = pair[0];
-        let value = pair[1];
+        const pair = pairs[i];
+        const idRow = pair[0];
+        const value = pair[1];
 
-        let productInfo = products.get(value.productId);
-        productInfo.count = value.quantity;
-        productInfo.size = value.size;
-        productInfo.idRow = idRow;
+        const productInfo = {
+                                ...products.get(value.productId),
+                                ...{
+                                    count: value.quantity,
+                                    size: value.size,
+                                    idRow: idRow
+                                }
+                            }
 
         total += productInfo.count * productInfo.price;
 
-        let row = createBasketRow(productInfo);
+        const row = createBasketRow(productInfo);
         $('.js-basket-items').append(row);
     }
-    $('.js-basket-total').text(total);
+    $('.js-basket-total').text(`Итого: ${total} руб.`);
     $('.js-remove-from-basket').click(function (event) {
-        let productId = $(this).parent(".js-product-row").data('full-product-id');
+        const productId = $(this).parent(".js-product-row").data('full-product-id');
         console.log(productId);
-        let productRow = basketMap.get(productId);
+        const productRow = basketMap.get(productId);
         if (productRow.quantity > 1) {
             productRow.quantity--;
         } else {
             basketMap.delete(productId);
         }
-        let countProducts = localStorage.getItem("countProducts");
-        let newCount = Number(countProducts) - 1;
+        const countProducts = localStorage.getItem("countProducts");
+        const newCount = Number(countProducts) - 1;
 
         localStorage.setItem("countProducts", newCount);
         $('.js-product-count').text(newCount);
@@ -125,60 +125,58 @@ function showBasket() {
     })
 }
 
-function removeFromBasket() {
-
-}
-
 $('.js-close-basket').click(function (event) {
     console.log("close basket");
     $('.js-basket, .js-overlay, .js-loader').addClass("js-hidden");
 });
 
-$('.js-add-to-basket').click(function (event) {
-    console.log("add to basket");
+let initProductCards = () => {
+    $('.js-add-to-basket').click(function (event) {
+        console.log("add to basket");
 
-    let productId = $(this).parent('.js-product-card').data('product-id');
-    console.log(productId);
+        const productId = $(this).parent('.js-product-card').data('product-id');
+        console.log(productId);
 
-    let socksSize = $(this).parent('.js-product-card').find('select').val();
-    console.log(socksSize);
-    if (socksSize == 'Размер') {
-        $('.js-notification, .js-overlay').removeClass('js-hidden');
-    } else {
-        let countProducts = localStorage.getItem("countProducts");
-        let newCount = Number(countProducts) + 1;
-
-        localStorage.setItem("countProducts", newCount);
-        $('.js-product-count').text(newCount);
-
-        console.log(newCount);
-
-        let basketJson = localStorage.getItem("basket");
-        let basketMap = new Map(JSON.parse(basketJson));
-
-        let productId_size = productId + socksSize;
-        if (basketMap.has(productId_size)) {
-            let productInBasket = basketMap.get(productId_size);
-            productInBasket.quantity++;
+        const socksSize = $(this).parent('.js-product-card').find('select').val();
+        console.log(socksSize);
+        if (socksSize === 'Размер') {
+            $('.js-notification, .js-overlay').removeClass('js-hidden');
         } else {
-            basketMap.set(productId_size, {
-                productId: productId,
-                quantity: 1,
-                size: socksSize
-            })
-        }
-        localStorage.setItem("basket", JSON.stringify(Array.from(basketMap.entries())));
-    }
-})
+            const countProducts = localStorage.getItem("countProducts");
+            const newCount = Number(countProducts) + 1;
 
-function createBasketRow (productInfo) {
-    let clone = productItemRow.content.cloneNode(true);
+            localStorage.setItem("countProducts", newCount);
+            $('.js-product-count').text(newCount);
+
+            console.log(newCount);
+
+            const basketJson = localStorage.getItem("basket");
+            const basketMap = new Map(JSON.parse(basketJson));
+
+            const productId_size = productId + socksSize;
+            if (basketMap.has(productId_size)) {
+                let productInBasket = basketMap.get(productId_size);
+                productInBasket.quantity++;
+            } else {
+                basketMap.set(productId_size, {
+                    productId: productId,
+                    quantity: 1,
+                    size: socksSize
+                })
+            }
+            localStorage.setItem("basket", JSON.stringify(Array.from(basketMap.entries())));
+        }
+    })
+}
+
+let createBasketRow = (productInfo) => {
+    const clone = productItemRow.content.cloneNode(true);
     $(clone).find(".js-product-row").data('full-product-id', productInfo.idRow);
     $(clone).find(".js-product-img").attr("src", productInfo.img);
     $(clone).find(".js-product-name").text(productInfo.name);
     $(clone).find(".js-product-size").text(productInfo.size);
-    $(clone).find(".js-product-quantity").text(productInfo.count);
-    $(clone).find(".js-product-price").text(productInfo.count*productInfo.price);
+    $(clone).find(".js-product-quantity").text(`${productInfo.count} шт.`);
+    $(clone).find(".js-product-price").text(`${productInfo.count * productInfo.price} руб.`);
     return clone;
 }
 
@@ -186,8 +184,8 @@ $('.js-overlay').click(function (event) {
     $('.js-basket, .js-notification, .js-overlay, .js-loader').addClass("js-hidden");
 })
 
-function creatProductCard (product) {
-    let clone = productCard.content.cloneNode(true);
+let creatProductCard = (product) => {
+    const clone = productCard.content.cloneNode(true);
     $(clone).find(".js-product-card").data('product-id', product.id);
     $(clone).find(".js-product-img").attr("src", product.img);
     $(clone).find(".js-product-name").text(product.name);
@@ -195,17 +193,18 @@ function creatProductCard (product) {
     return clone;
 }
 
-function showProductCards () {
-    let productEntries = Array.from(products.entries());
-    for (let i=0; i<productEntries.length; i++) {
-        let productPair = productEntries[i];
-        let id = productPair[0];
-        let product = productPair[1];
+let showProductCards = () => {
+    const productEntries = Array.from(products.entries());
+    for (let i = 0; i < productEntries.length; i++) {
+        const productPair = productEntries[i];
+        const id = productPair[0];
+        const product = productPair[1];
 
         product.id = id;
-        let card = creatProductCard(product);
+        const card = creatProductCard(product);
         $(".js-product-cards-container").append(card);
     }
 }
 
-
+showProductCards();
+initProductCards();
