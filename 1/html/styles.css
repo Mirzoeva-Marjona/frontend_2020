@@ -450,6 +450,7 @@ button {
 
 .modal._basket {
     width: 40%;
+    max-height: 80%;
 
     background-color: white;
 }
