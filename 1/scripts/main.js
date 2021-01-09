@@ -97,8 +97,16 @@ const showBasket = () => {
 
         total += productInfo.count * productInfo.price;
 
-        const row = createBasketRow(productInfo);
-        $('.js-basket-items').append(row);
+        //const row = createBasketRow(productInfo);
+        //$('.js-basket-items').append(row);
+        const basketItems= document.querySelector(".js-basket-items");
+        const productRow = new ProductRow(basketItems);
+        productRow.setCount(productInfo.count);
+        productRow.socksSize = productInfo.size;
+        productRow.productImageSource = productInfo.img;
+        productRow.productName = productInfo.name;
+        productRow.socksPrice = productInfo.price;
+
     }
     $('.js-basket-total').text(`Итого: ${total} руб.`);
     $('.js-remove-from-basket').click(function (event) {
@@ -172,6 +180,8 @@ const createBasketRow = (productInfo) => {
     $(clone).find(".js-product-size").text(productInfo.size);
     $(clone).find(".js-product-quantity").text(`${productInfo.count} шт.`);
     $(clone).find(".js-product-price").text(`${productInfo.count * productInfo.price} руб.`);
+    const counter = new Counter(clone);
+    counter.value = productInfo.count;
     return clone;
 }
 
