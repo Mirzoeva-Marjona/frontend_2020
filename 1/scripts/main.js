@@ -55,14 +55,14 @@ const products = new Map([
 
 localStorage.setItem("products", JSON.stringify(Array.from(products.entries())));
 
-let sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-let preloaderOpen = () => {
+const preloaderOpen = () => {
     $('.js-loader, .js-overlay').removeClass('js-hidden');
     $('.js-loader').slideUp(500).slideDown(500);
 }
 
-let preloaderClose = () => {
+const preloaderClose = () => {
     $('.js-loader').slideUp(500).slideDown(500).delay(1000);
     $('.js-loader').addClass('js-hidden');
 }
@@ -75,7 +75,7 @@ $('.js-open-basket').click(function (event) {
     });
 });
 
-let showBasket = () => {
+const showBasket = () => {
     $('.js-basket').removeClass('js-hidden');
 
     console.log("open basket");
@@ -85,20 +85,15 @@ let showBasket = () => {
     $('.js-basket-items').empty();
 
     let total = 0;
-    const pairs = Array.from(basketMap.entries());
-    for (let i = 0; i < pairs.length; i++) {
-        const pair = pairs[i];
-        const idRow = pair[0];
-        const value = pair[1];
-
-        const productInfo = {
-                                ...products.get(value.productId),
-                                ...{
-                                    count: value.quantity,
-                                    size: value.size,
-                                    idRow: idRow
-                                }
-                            }
+    const productEntries = basketMap.entries()
+    for (const [id, purchase] of productEntries) {
+        const product = products.get(purchase.productId);
+        const purchaseInfo = {
+            count: purchase.quantity,
+            size: purchase.size,
+            idRow: id,
+        }
+        const productInfo = {...product, ...purchaseInfo}
 
         total += productInfo.count * productInfo.price;
 
@@ -130,7 +125,7 @@ $('.js-close-basket').click(function (event) {
     $('.js-basket, .js-overlay, .js-loader').addClass("js-hidden");
 });
 
-let initProductCards = () => {
+const initProductCards = () => {
     $('.js-add-to-basket').click(function (event) {
         console.log("add to basket");
 
@@ -169,7 +164,7 @@ let initProductCards = () => {
     })
 }
 
-let createBasketRow = (productInfo) => {
+const createBasketRow = (productInfo) => {
     const clone = productItemRow.content.cloneNode(true);
     $(clone).find(".js-product-row").data('full-product-id', productInfo.idRow);
     $(clone).find(".js-product-img").attr("src", productInfo.img);
@@ -184,7 +179,7 @@ $('.js-overlay').click(function (event) {
     $('.js-basket, .js-notification, .js-overlay, .js-loader').addClass("js-hidden");
 })
 
-let creatProductCard = (product) => {
+const creatProductCard = (product) => {
     const clone = productCard.content.cloneNode(true);
     $(clone).find(".js-product-card").data('product-id', product.id);
     $(clone).find(".js-product-img").attr("src", product.img);
@@ -193,12 +188,9 @@ let creatProductCard = (product) => {
     return clone;
 }
 
-let showProductCards = () => {
-    const productEntries = Array.from(products.entries());
-    for (let i = 0; i < productEntries.length; i++) {
-        const productPair = productEntries[i];
-        const id = productPair[0];
-        const product = productPair[1];
+const showProductCards = () => {
+    const productEntries = products.entries();
+    for (const [id, product] of productEntries) {
 
         product.id = id;
         const card = creatProductCard(product);
