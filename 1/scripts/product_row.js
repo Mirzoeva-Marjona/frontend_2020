@@ -1,4 +1,5 @@
 class ProductRow {
+    id;
     set productImageSource(src) {
         this.productImage.src = src;
     }
@@ -55,8 +56,17 @@ class ProductRow {
         let counterFiled = content.querySelector(".js-product-quantity");
         this.counter = new Counter(counterFiled);
         this.socksPriceField = content.querySelector(".js-product-price");
+        this.removeRowButton = content.querySelector(".js-remove-from-basket");
 
         wrapper.appendChild(content);
     }
 
+    setRemoveHandler(removeRowFunction) {
+        this.removeRowFuntion = removeRowFunction;
+        this.removeRowButton.onclick = this.removeProvider.bind(this);
+    }
+
+    removeProvider() {
+        this.removeRowFuntion(this);
+    }
 }
