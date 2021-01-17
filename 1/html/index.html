@@ -84,28 +84,6 @@
     </section>
     <section class="product-cards-container _frame js-product-cards-container">
     </section>
-    <div class="modal _basket _scroll js-basket js-hidden">
-        <div class="basket-content">
-            <div class="basket-content__header">
-                <div data-modal="open-basket" class="basket-content__header-title _font">
-                    <div>
-                        <span>Выбранные товары</span>
-                    </div>
-                </div>
-                <div class="basket-content__close-button js-close-basket">
-                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21.9875 6.25L15 13.2375L8.0125 6.25L6.25 8.0125L13.2375 15L6.25 21.9875L8.0125 23.75L15 16.7625L21.9875 23.75L23.75 21.9875L16.7625 15L23.75 8.0125L21.9875 6.25Z"
-                              fill="#333333"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="js-basket-items"></div>
-            <div class="basket-content__total _font">
-                <span class="js-basket-total"></span>
-            </div>
-        </div>
-    </div>
     <div class="modal js-hidden js-notification">
         <div class="notification-fragment _text">
             <span>Выберите размер</span>
@@ -235,6 +213,30 @@
         </div>
     </div>
 </template>
+<template id="basketComponent">
+    <div class="modal _basket _scroll js-basket js-hidden">
+        <div class="basket-content">
+            <div class="basket-content__header">
+                <div data-modal="open-basket" class="basket-content__header-title _font">
+                    <div>
+                        <span>Выбранные товары</span>
+                    </div>
+                </div>
+                <div class="basket-content__close-button js-close-basket">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.9875 6.25L15 13.2375L8.0125 6.25L6.25 8.0125L13.2375 15L6.25 21.9875L8.0125 23.75L15 16.7625L21.9875 23.75L23.75 21.9875L16.7625 15L23.75 8.0125L21.9875 6.25Z"
+                              fill="#333333"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="js-basket-items"></div>
+            <div class="basket-content__total _font">
+                <span class="js-basket-total"></span>
+            </div>
+        </div>
+    </div>
+</template>
 <template id="productItemRow">
     <div class="product-row _font js-product-row">
         <div>
@@ -253,6 +255,17 @@
         </div>
     </div>
 </template>
+<template id="counterTemplate">
+    <div>
+        <button type="button" class="js-decrease">-</button>
+        <input type="text" class="js-value" value="0"/>
+        <button type="button" class="js-increase">+</button>
+    </div>
+</template>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="../scripts/basket_component.js"></script>
+<script src="../scripts/storage_service.js"></script>
+<script src="../scripts/product_row.js"></script>
+<script src="../scripts/counter.js"></script>
 <script src="../scripts/main.js"></script>
 </html>
