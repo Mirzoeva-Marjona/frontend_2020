@@ -22,6 +22,7 @@ class BasketComponent {
         this.basketItemsFrame = content.querySelector(".js-basket-items");
         this.basketTotalField = content.querySelector(".js-basket-total");
         this.closeBasketButton = content.querySelector(".js-close-basket");
+        this.totalCountField = document.querySelector(".js-product-count");
 
         this.closeBasketButton.addEventListener("click", this.closeFunction);
         wrapper.appendChild(content);
@@ -50,12 +51,49 @@ class BasketComponent {
             productRow.socksPrice = productInfo.price;
             total += productRow.calculate();
             productRow.setRemoveHandler(this.removeProduct);
+            productRow.setIncreaseHandler(this.increaseRowCount);
+            productRow.setDecreaseHandler(this.decreaseRowCount);
         }
 
         this.basketTotalField.innerHTML = `Итого: ${total} руб.`;
+        this.updateTotalCounter();
+    }
+
+    addProductToBasket(productId, socksSize) {
+        const productIdSize = productId + socksSize;
+        if (this.basketMap.has(productIdSize)) {
+            let productInBasket = this.basketMap.get(productIdSize);
+            productInBasket.quantity++;
+        } else {
+            this.basketMap.set(productIdSize, {
+                productId: productId,
+                quantity: 1,
+                size: socksSize
+            })
+        }
+        storage.savePurchase(this.basketMap);
+        basketComponent.updateTotalCounter();
+    }
+
+    updateTotalCounter = () => {
+        this.basketMap = storage.loadPurchase();
+        let count = 0;
+        for (let countProduct of this.purchaseMap.values()) {
+            count += Number(countProduct.quantity);
+        }
+        console.log(count);
+        this.totalCountField.innerHTML = count;
     }
 
     removeProduct = (productRow) => {
+        const productId = productRow.id;
+        console.log(productId);
+        this.basketMap.delete(productId);
+        storage.savePurchase(this.basketMap);
+        this.update();
+    }
+
+    decreaseRowCount = (productRow) => {
         const productId = productRow.id;
         console.log(productId);
         const purchase = this.basketMap.get(productId);
@@ -64,10 +102,17 @@ class BasketComponent {
         } else {
             this.basketMap.delete(productId);
         }
-        const countProducts = 0;
-        const newCount = Number(countProducts) - 1;
+        productRow.setCount(purchase.quantity);
+        storage.savePurchase(this.basketMap);
+        this.update();
+    }
 
-        productRow.setCount(newCount);
+    increaseRowCount = (productRow) => {
+        const productId = productRow.id;
+        console.log(productId);
+        const purchase = this.basketMap.get(productId);
+        purchase.quantity++;
+        productRow.setCount(purchase.quantity);
         storage.savePurchase(this.basketMap);
         this.update();
     }

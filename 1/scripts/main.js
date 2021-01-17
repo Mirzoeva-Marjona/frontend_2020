@@ -1,10 +1,3 @@
-if (localStorage.getItem("countProducts") == null) {
-    localStorage.setItem("countProducts", "0");
-} else {
-    const countProducts = localStorage.getItem("countProducts");
-    $('.js-product-count').text(countProducts);
-}
-
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const preloaderOpen = () => {
@@ -28,7 +21,6 @@ $('.js-open-basket').click(function (event) {
 const showBasket = () => {
     basketComponent.update();
     $('.js-basket').removeClass('js-hidden');
-
     console.log("open basket");
 }
 
@@ -50,28 +42,7 @@ const initProductCards = () => {
         if (socksSize === SIZE_TEXT) {
             $('.js-notification, .js-overlay').removeClass('js-hidden');
         } else {
-            const countProducts = localStorage.getItem("countProducts");
-            const newCount = Number(countProducts) + 1;
-
-            localStorage.setItem("countProducts", newCount);
-            $('.js-product-count').text(newCount);
-
-            console.log(newCount);
-
-            const basketMap = storage.loadPurchase();
-
-            const productIdSize = productId + socksSize;
-            if (basketMap.has(productIdSize)) {
-                let productInBasket = basketMap.get(productIdSize);
-                productInBasket.quantity++;
-            } else {
-                basketMap.set(productIdSize, {
-                    productId: productId,
-                    quantity: 1,
-                    size: socksSize
-                })
-            }
-            storage.savePurchase(basketMap);
+            basketComponent.addProductToBasket(productId, socksSize);
         }
     })
 }

@@ -69,4 +69,12 @@ class ProductRow {
     removeProvider() {
         this.removeRowFuntion(this);
     }
+
+    setIncreaseHandler(increaseHandler) {
+        this.counter.setIncreaseHandler(() => increaseHandler(this));
+    }
+
+    setDecreaseHandler(decreaseHandler) {
+        this.counter.setDecreaseHandler(() => decreaseHandler(this));
+    }
 }

@@ -24,9 +24,19 @@ class Counter {
 
     increase() {
         this.value++;
+        this.increaseHandler();
     }
 
+    setIncreaseHandler(increaseHandler) {
+        this.increaseHandler = increaseHandler;
+    }
+    
     decrease() {
         this.value--;
+        this.decreaseHandler();
+    }
+
+    setDecreaseHandler(decreaseHandler) {
+        this.decreaseHandler = decreaseHandler;
     }
 }
