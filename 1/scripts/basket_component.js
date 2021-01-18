@@ -42,13 +42,7 @@ class BasketComponent {
             }
             const productInfo = {...product, ...purchaseInfo}
 
-            const productRow = new ProductRow(this.basketItemsFrame);
-            productRow.id = productInfo.idRow;
-            productRow.setCount(productInfo.count);
-            productRow.socksSize = productInfo.size;
-            productRow.productImageSource = productInfo.img;
-            productRow.productName = productInfo.name;
-            productRow.socksPrice = productInfo.price;
+            const productRow = new ProductRow(this.basketItemsFrame, productInfo);
             total += productRow.calculate();
             productRow.setRemoveHandler(this.removeProduct);
             productRow.setIncreaseHandler(this.increaseRowCount);

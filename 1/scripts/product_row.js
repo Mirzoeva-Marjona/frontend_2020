@@ -46,7 +46,7 @@ class ProductRow {
         return this.productPrice * this.getCount();
     }
 
-    constructor(wrapper) {
+    constructor(wrapper, productInfo) {
         const template = document.getElementById("productItemRow");
         const content = document.importNode(template.content, true);
 
@@ -57,6 +57,13 @@ class ProductRow {
         this.counter = new Counter(counterFiled);
         this.socksPriceField = content.querySelector(".js-product-price");
         this.removeRowButton = content.querySelector(".js-remove-from-basket");
+
+        this.id = productInfo.idRow;
+        this.setCount(productInfo.count);
+        this.socksSize = productInfo.size;
+        this.productImageSource = productInfo.img;
+        this.productName = productInfo.name;
+        this.socksPrice = productInfo.price;
 
         wrapper.appendChild(content);
     }
