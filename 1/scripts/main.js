@@ -71,7 +71,8 @@ const showProductCards = () => {
 }
 
 const wrapper = document.documentElement;
-const basketComponent = new BasketComponent(wrapper, closeBasket);
+const basketComponent = new BasketComponent(wrapper);
+basketComponent.closeFunction = closeBasket;
 const storage = new StorageService();
 basketComponent.purchaseMap = storage.loadPurchase();
 
