@@ -24,15 +24,6 @@ class ProductRow {
         return this.socksSizeField.innerHTML;
     }
 
-    setCount(count) {
-        this.counter.value = count;
-        this.socksPriceField.innerHTML = `${this.calculate()} руб.`;
-    }
-
-    getCount() {
-        return this.counter.value;
-    }
-
     set socksPrice(price) {
         this.productPrice = price;
         this.socksPriceField.innerHTML = `${this.calculate()} руб.`;
@@ -42,8 +33,8 @@ class ProductRow {
         return this.productPrice;
     }
 
-    calculate() {
-        return this.productPrice * this.getCount();
+    calculate(productPrice, count) {
+        return productPrice * count;
     }
 
     constructor(wrapper, productInfo) {
@@ -55,33 +46,30 @@ class ProductRow {
         this.socksSizeField = content.querySelector(".js-product-size");
         let counterFiled = content.querySelector(".js-product-quantity");
         this.counter = new Counter(counterFiled);
+        this.counter.productCountChanged = this.productCountChanged;
         this.socksPriceField = content.querySelector(".js-product-price");
         this.removeRowButton = content.querySelector(".js-remove-from-basket");
 
+        this.productInfo = productInfo;
         this.id = productInfo.idRow;
-        this.setCount(productInfo.count);
+        this.counter.value = productInfo.count;
         this.socksSize = productInfo.size;
         this.productImageSource = productInfo.img;
         this.productName = productInfo.name;
         this.socksPrice = productInfo.price;
+        this.socksPriceField.innerHTML = `${this.calculate(this.productPrice, this.counter.value)} руб.`;
 
+        this.removeRowButton.onclick = () => this.removeProduct(this.id);
         wrapper.appendChild(content);
     }
 
-    setRemoveHandler(removeRowFunction) {
-        this.removeRowFuntion = removeRowFunction;
-        this.removeRowButton.onclick = this.removeProvider.bind(this);
-    }
-
-    removeProvider() {
-        this.removeRowFuntion(this);
-    }
-
-    setIncreaseHandler(increaseHandler) {
-        this.counter.setIncreaseHandler(() => increaseHandler(this));
-    }
-
-    setDecreaseHandler(decreaseHandler) {
-        this.counter.setDecreaseHandler(() => decreaseHandler(this));
+    productCountChanged = (value) => {
+        if (value === 0) {
+            this.removeProduct(this.id);
+            return;
+        }
+        this.socksPriceField.innerHTML = `${this.calculate(this.productPrice, value)} руб.`;
+        this.productInfo.count = value;
+        this.productRowAmountChanged(this.productInfo);
     }
 }

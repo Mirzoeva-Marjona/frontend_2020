@@ -9,30 +9,23 @@ class BasketComponent {
         return this.basketMap;
     }
 
-    closeBasket() {
-        this.closeFunction();
-    }
-
-    constructor(wrapper, closeFunction) {
+    constructor(wrapper) {
         const template = document.getElementById("basketComponent");
         const content = document.importNode(template.content, true);
-
-        this.closeFunction = closeFunction;
 
         this.basketItemsFrame = content.querySelector(".js-basket-items");
         this.basketTotalField = content.querySelector(".js-basket-total");
         this.closeBasketButton = content.querySelector(".js-close-basket");
         this.totalCountField = document.querySelector(".js-product-count");
 
-        this.closeBasketButton.addEventListener("click", this.closeFunction);
+        this.closeBasketButton.onclick = () => this.closeFunction();
         wrapper.appendChild(content);
     }
 
     update() {
        this.basketItemsFrame.innerHTML = "";
         this.basketMap = storage.loadPurchase();
-        let total = 0;
-        const productEntries = this.basketMap.entries()
+        const productEntries = this.basketMap.entries();
         for (const [id, purchase] of productEntries) {
             const product = storage.loadProducts().get(purchase.productId);
             const purchaseInfo = {
@@ -43,14 +36,20 @@ class BasketComponent {
             const productInfo = {...product, ...purchaseInfo}
 
             const productRow = new ProductRow(this.basketItemsFrame, productInfo);
-            total += productRow.calculate();
-            productRow.setRemoveHandler(this.removeProduct);
-            productRow.setIncreaseHandler(this.increaseRowCount);
-            productRow.setDecreaseHandler(this.decreaseRowCount);
+            productRow.removeProduct = this.removeProduct;
+            productRow.productRowAmountChanged = this.productRowAmountChanged;
         }
 
-        this.basketTotalField.innerHTML = `Итого: ${total} руб.`;
         this.updateTotalCounter();
+        this.updateTotalPrice();
+    }
+
+    productRowAmountChanged = (productInfo) => {
+        let oldPurchase = this.basketMap.get(productInfo.idRow);
+        oldPurchase.quantity = productInfo.count;
+        storage.savePurchase(this.basketMap);
+        this.updateTotalCounter();
+        this.updateTotalPrice();
     }
 
     addProductToBasket(productId, socksSize) {
@@ -79,34 +78,19 @@ class BasketComponent {
         this.totalCountField.innerHTML = count;
     }
 
-    removeProduct = (productRow) => {
-        const productId = productRow.id;
-        console.log(productId);
-        this.basketMap.delete(productId);
-        storage.savePurchase(this.basketMap);
-        this.update();
-    }
-
-    decreaseRowCount = (productRow) => {
-        const productId = productRow.id;
-        console.log(productId);
-        const purchase = this.basketMap.get(productId);
-        if (purchase.quantity > 1) {
-            purchase.quantity--;
-        } else {
-            this.basketMap.delete(productId);
+    updateTotalPrice = () => {
+        this.basketMap = storage.loadPurchase();
+        const products = storage.loadProducts();
+        let totalPrice = 0;
+        for (let productInfo of this.purchaseMap.values()) {
+            let productsPrice = products.get(productInfo.productId).price;
+            totalPrice += productInfo.quantity * productsPrice;
         }
-        productRow.setCount(purchase.quantity);
-        storage.savePurchase(this.basketMap);
-        this.update();
+        this.basketTotalField.innerHTML = `Итого: ${totalPrice} руб.`;
     }
 
-    increaseRowCount = (productRow) => {
-        const productId = productRow.id;
-        console.log(productId);
-        const purchase = this.basketMap.get(productId);
-        purchase.quantity++;
-        productRow.setCount(purchase.quantity);
+    removeProduct = (productId) => {
+        this.basketMap.delete(productId);
         storage.savePurchase(this.basketMap);
         this.update();
     }
