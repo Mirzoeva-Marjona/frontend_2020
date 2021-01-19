@@ -1,5 +1,6 @@
 class BasketComponent {
     content;
+
     set purchaseMap(map) {
         this.basketMap = map;
         this.update();
@@ -23,33 +24,50 @@ class BasketComponent {
     }
 
     update() {
-       this.basketItemsFrame.innerHTML = "";
+        this.basketItemsFrame.innerHTML = "";
         this.basketMap = storage.loadPurchase();
         const productEntries = this.basketMap.entries();
+        let productList = [];
         for (const [id, purchase] of productEntries) {
             const product = storage.loadProducts().get(purchase.productId);
             const purchaseInfo = {
+                productId: purchase.productId,
                 count: purchase.quantity,
                 size: purchase.size,
                 idRow: id,
             }
             const productInfo = {...product, ...purchaseInfo}
+            productList.push(productInfo);
+        }
 
+        let priceDiscounter = (discount) => {
+            return (discountProducts) => {
+                return productList.map(productInfo => {
+                    if (discountProducts.includes(productInfo.productId)) {
+                        productInfo.price -= productInfo.price * discount;
+                    }
+                    return productInfo;
+                });
+            }
+        }
+
+        let dailyPriceDiscounter = priceDiscounter(storage.loadDailyDiscount());
+        productList = dailyPriceDiscounter(storage.loadDailyDiscountProducts());
+        productList.forEach(productInfo => {
             const productRow = new ProductRow(this.basketItemsFrame, productInfo);
             productRow.removeProduct = this.removeProduct;
             productRow.productRowAmountChanged = this.productRowAmountChanged;
-        }
+        });
 
         this.updateTotalCounter();
-        this.updateTotalPrice();
+        this.updateTotalPrice(productList);
     }
 
     productRowAmountChanged = (productInfo) => {
         let oldPurchase = this.basketMap.get(productInfo.idRow);
         oldPurchase.quantity = productInfo.count;
         storage.savePurchase(this.basketMap);
-        this.updateTotalCounter();
-        this.updateTotalPrice();
+        this.update();
     }
 
     addProductToBasket(productId, socksSize) {
@@ -78,13 +96,10 @@ class BasketComponent {
         this.totalCountField.innerHTML = count;
     }
 
-    updateTotalPrice = () => {
-        this.basketMap = storage.loadPurchase();
-        const products = storage.loadProducts();
+    updateTotalPrice = (productList) => {
         let totalPrice = 0;
-        for (let productInfo of this.purchaseMap.values()) {
-            let productsPrice = products.get(productInfo.productId).price;
-            totalPrice += productInfo.quantity * productsPrice;
+        for (let productInfo of productList) {
+            totalPrice += Math.ceil(productInfo.count * productInfo.price);
         }
         this.basketTotalField.innerHTML = `Итого: ${totalPrice} руб.`;
     }

@@ -34,7 +34,7 @@ class ProductRow {
     }
 
     calculate(productPrice, count) {
-        return productPrice * count;
+        return Math.ceil(productPrice * count);
     }
 
     constructor(wrapper, productInfo) {
