@@ -59,4 +59,11 @@ class StorageService {
         localStorage.setItem("basket", JSON.stringify(Array.from(basketMap.entries())));
     }
 
+    loadDailyDiscount() {
+        return 0.1;
+    }
+
+    loadDailyDiscountProducts() {
+        return [1, 3, 7];
+    }
 }
